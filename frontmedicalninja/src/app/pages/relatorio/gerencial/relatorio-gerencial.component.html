@@ -1,0 +1,32 @@
+
+
+<nb-card>
+    <nb-card-header>
+      <label>Relatorio Gerencial</label>     
+    </nb-card-header>
+  
+    <nb-card-body>
+      <toaster-container [toasterconfig]="config"></toaster-container>
+      <div class="col-md-12 row">
+        
+        <div class="form-group row col-md-12">
+          <label class="col-sm-1 col-form-label">De</label>
+          <div class="col-sm-2">
+            <input [(ngModel)]="relatoriocsv.de" type="date"  class="form-control">
+          </div>
+          <label class="col-sm-1 col-form-label">Até</label>
+          <div class="col-sm-2">
+            <input [(ngModel)]="relatoriocsv.ate" type="date"  class="form-control">
+          </div>
+          <label class="col-sm-1 col-form-label">Separador</label>
+          <div class="col-sm-2">
+            <input [(ngModel)]="relatoriocsv.separador" type="text"  class="form-control" >
+          </div>
+        </div>
+        
+      </div>
+
+      <button [disabled]="load" class="btnDownload btn btn-md btn-primary" (click)="Download()">{{ load ? "Carregando" : "Download" }}</button>
+    </nb-card-body>
+  </nb-card>
+  

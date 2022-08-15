@@ -1,0 +1,71 @@
+.modal-xl{
+  min-width: 1100px !important;
+}
+
+.modal-content {
+  min-height: 550px;
+  min-width: 1100px !important;
+}
+
+.dustModalExameAnteriores {
+  min-height: 550px;
+  min-width: 1100px !important;
+  max-height: 800px !important;
+}
+
+.btnselecionar{
+  max-height: 32px;
+  padding: 6px 15px 6px 15px;
+}
+
+
+.naoFavorito {
+  color: gray;
+}
+
+.notification {
+  position: relative;
+  display: inline-block;
+}
+
+.notification .badgeAnexo {
+  position: absolute;
+  top: -7px;
+  right: -1px;
+  padding: 4px 6px;
+  border-radius: 50%;
+  background: green;
+  color: white;
+  font-size: 66% !important;
+}
+
+.btnpaperclip {
+  font-size: 14px !important;
+}
+
+.notification .badgeNota {
+  position: absolute;
+  top: -9px;
+  right: 3px;
+  padding: 4px 6px;
+  border-radius: 50%;
+  background: green;
+  color: white;
+  font-size: 66% !important;
+}
+
+.btncomment {
+  font-size: 14px !important;
+}
+
+.btnFilePdf{
+  font-size: 15px;
+}
+
+.tdIconesRigth{
+  min-width: 154px;
+}
+
+.tdIconesLeft{
+  min-width: 130px;
+}

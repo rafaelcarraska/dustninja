@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <span>{{ modalHeader }}</span>
+  <button class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="dustModal">
+  <div class="col-md-12 row">
+    <div class="form-group row col-md-12">
+      <label for="inputNome" class="col-sm-2 col-form-label">Chave: </label>
+      <div class="col-sm-8">
+        <label class="lbManualSetupKey">{{ twoFactor.ManualSetupKey }}</label>
+      </div>
+    </div>
+    <div class="form-group row col-md-12">
+      <label for="inputNome" class="col-sm-2 col-form-label">QR Code</label>
+      <div class="col-sm-8">
+        <img [src]='twoFactor.QrCodeImage' alt="Red dot" />
+      </div>
+    </div>
+    <div class="form-group row col-md-12">
+        <label for="inputNome" class="col-sm-2 col-form-label">Validar: </label>
+        <div class="col-sm-4">
+            <input [(ngModel)]="validaTwoFactor.pin" type="text" class="form-control" name="pin">
+        </div>
+        <div class="col-sm-3">
+            <button class="btnValida btn btn-md btn-primary" (click)="ValidaTwoFactor()">Validar</button>
+          </div>
+      </div>
+  </div>
+  <div class="modal-footer row col-md-12">
+    <div class="col-sm-6 modal-footer-log">
+      <label>{{usuario.log.updateUsuarioId}} - {{usuario.log.updateDataEncerramento}}</label>
+    </div>
+    <div class="col-sm-3">
+      <button class="btnCancelar btn btn-md btn-primary" (click)="closeModal()">Cancelar</button>
+    </div>
+    <div class="col-sm-3">
+      <button class="btnGerar btn btn-md btn-primary" (click)="Gerar(usuario.Id)">Gerar novo</button>
+    </div>
+  </div>
+</div>

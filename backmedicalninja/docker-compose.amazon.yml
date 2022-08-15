@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  dustmedicalninja:
+    image: ${DOCKER_REGISTRY}dustmedicalninja
+    build:
+      context: .
+      dockerfile: DustMedicalNinja/Dockerfile

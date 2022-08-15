@@ -1,0 +1,61 @@
+<div class="modal-header">
+    <span>{{ modalHeader }}</span>
+  <button class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="dustModal">
+  <!-- <form class="row" (submit)="Salvar($event)"> -->
+    <nb-tabset>
+      <nb-tab tabTitle="Perfis">
+        <div class="col-md-12 row">
+          <div class="form-group row col-md-12">
+            <label class="col-sm-3 col-form-label">Descrição</label>
+            <div class="col-sm-9">
+              <input id="descricao" name="descricao" class="form-control" required minlength="3" [(ngModel)]="perfil.descricao" #name="ngModel">
+              <ap-vmessage *ngIf="erroDescricao" text="{{erroDescricao}}"> </ap-vmessage>
+            </div>
+          </div>
+          <div class="form-group row col-md-12">
+            <div class="offset-sm-3 col-sm-3">
+              <div class="checkbox">
+                <nb-checkbox name="status" [(ngModel)]="perfil.status">Ativo</nb-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-tab>
+      <nb-tab tabTitle="Permissões">
+        <div class="row col-md-12">
+          <nb-card class="inline-form-card">
+            <nb-card-header>Selecione os acessos do perfil.</nb-card-header>
+            <nb-card-body>
+              <tree-root
+              #tree
+              [nodes]="nodes"
+              [options]="options">
+
+              <ng-template #treeNodeTemplate let-node="node" let-index="index" >
+                <input
+                  (change)="check(node, !node.data.checked)"
+                  type="checkbox"
+                  [indeterminate]="node.data.indeterminate"
+                  [checked]="node.data.checked">
+
+                  {{ node.data.name }}
+              </ng-template>
+            </tree-root>
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </nb-tab>
+    </nb-tabset>
+    <div class="modal-footer row col-md-12 DvBotoes">
+      <div class="col-sm-6 modal-footer-log">
+        <label>{{perfil.log.updateUsuarioId}} - {{perfil.log.updateDataEncerramento}}</label>
+      </div>
+        <button class="btnCancelar btn btn-md btn-primary" (click)="closeModal()">Cancelar</button>
+        <button class="btnSalvar btn btn-md btn-primary" (click)="Salvar()">Salvar</button>
+    </div>
+  <!-- </form> -->
+</div>

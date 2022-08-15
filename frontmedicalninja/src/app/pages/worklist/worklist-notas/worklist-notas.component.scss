@@ -1,0 +1,57 @@
+.historico {
+  max-height: 454px;
+  overflow-x: auto;
+  margin-bottom: 35px;
+}
+
+.historico-chat {
+  padding: 24px 0px 0px 0px;
+}
+
+.historico-image {
+  margin-left: 1px;
+  width: 100%;
+}
+
+.historico-desc {
+  width: 100%;
+  border-radius: 5px;
+  padding: 5px 5px 5px 5px;
+  margin-left: 67px;
+}
+
+.dustModal {
+  max-height: 800px !important;
+}
+
+.historicoUsuario {
+  background: lavender;
+}
+
+.historicoNaoUsuario {
+  background: rgb(230, 250, 238);
+}
+
+.historico-date {
+  padding-top: 24px;
+}
+
+.historico-picture{
+  padding-left: 17px;
+}
+
+.text-nota{
+  margin-left: 39px;
+}
+
+.modal-content{
+  min-height: 550px;
+ }
+
+ .btnTrash{
+   color: red;
+ }
+
+ .aTrash{
+   float: right;
+ }

@@ -1,0 +1,17 @@
+.demo-chart {
+  height: 400px;
+}
+
+.ngx-charts-outer {
+  display: table;
+  .ngx-charts {
+      float: left !important;
+      position: relative !important;
+      display: table-footer-group;
+  }
+
+  .chart-legend {
+      width: 100% !important;
+      display: table-header-group;
+  }
+}

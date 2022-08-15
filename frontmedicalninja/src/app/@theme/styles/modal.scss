@@ -1,0 +1,29 @@
+
+@import 'site';
+
+.dustModal{
+  padding: 0px 50px 20px 50px;
+  max-height: 620px;
+  overflow-y: auto;
+
+}
+
+.dustModal nb-tab{
+  margin-top: 10px;
+  max-height: 415px;
+  min-width: 730px;
+}
+
+.dustInput{
+  margin-top: 10px;
+}
+
+.modal-lg{
+  min-width: 1000px !important;
+}
+
+.modal-footer-log{
+  clear: both;
+  max-width: 100% !important;
+  flex: none !important;
+}

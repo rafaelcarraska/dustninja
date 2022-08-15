@@ -1,0 +1,209 @@
+<div class="modal-header">
+    <span>{{ modalHeader }}</span>
+  <button class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="dustModal">
+  <!-- <form class="row" (submit)="salvarFacility($event)"> -->
+  <nb-tabset>
+    <nb-tab tabTitle="Unidades">
+      <div class="modal-body col-md-12 row">
+        <div class="form-group row col-md-12">
+          <label for="inputDescricao" class="col-md-3 col-form-label">Descrição</label>
+          <div class="col-md-9">
+            <input [(ngModel)]="facility.descricao" type="text" class="form-control" name="descricao" placeholder="Descrição">
+            <ap-vmessage *ngIf="erroDescricao" text="{{erroDescricao}}"> </ap-vmessage>
+          </div>
+        </div>
+        <div class="form-group row col-md-12">
+            <label for="inputRazaoSocial" class="col-md-3 col-form-label">Razão Social</label>
+            <div class="col-md-9">
+              <input [(ngModel)]="facility.razaoSocial" type="text" class="form-control" name="razaoSocial" placeholder="Razão Social">
+              <ap-vmessage *ngIf="erroRazaoSocial" text="{{erroRazaoSocial}}"> </ap-vmessage>
+            </div>
+          </div>
+        <div *ngIf="facility.aeTitle" class="form-group row col-md-12">
+          <label for="inputAeTitle" class="col-md-3 col-form-label">AE Title</label>
+          <div class="col-md-9">
+            <input [ngModel]="facility.aeTitle" disabled type="text" class="form-control" name="aeTitle" placeholder="AE Title">
+          </div>
+        </div>
+        <div class="form-group row col-md-12">
+          <label for="inputTempoRetencaoImagens" class="col-md-3 col-form-label">Tempo de rentenção das imagens (dias)</label>
+          <div class="col-md-2">
+            <input [(ngModel)]="facility.tempoRetencaoImagens" type="number" class="form-control" name="tempoRetencaoImagens">
+          </div>
+          <label for="inputTempoRetencaoImagens" class="col-md-3 col-form-label"> Modelo de impressão</label>
+          <div class="col-md-4">
+            <select class="form-control selectPerfilMulti">
+              <option>Modelo 1</option>
+              <option>Modelo 2</option>
+              <option>Modelo 3</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row col-md-12">
+          <label for="inputObs" class="col-md-3 col-form-label">Nota Radiologista</label>
+          <div class="col-md-9">
+            <textarea [(ngModel)]="facility.notaRadiologista" cols="3" rows="3" class="form-control" name="obs" placeholder="Obs"></textarea>
+          </div>
+        </div>
+        <div class="offset-md-3 col-md-9">
+          <div class="checkbox">
+            <nb-checkbox name="status" [(ngModel)]="facility.status">Ativo</nb-checkbox>
+          </div>
+        </div>
+      </div>
+    </nb-tab>
+    <nb-tab tabTitle="Templete de Impressão">
+        <div class="form-group row col-md-12">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Templete de Impressão</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let templateImpressao of listaTemplateImpressao">
+                <td><input type="checkbox" [(ngModel)]="templateImpressao.status" ></td>
+                <td>{{templateImpressao.descricao}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </nb-tab>
+    <nb-tab tabTitle="Tempos de Entrega">
+      <div class="modal-body col-md-12 row">
+        <div class="row col-md-12 rowRotina">
+          <label class="col-md-2 col-form-label">Rotina</label>
+          <div class="col-md-2">
+            <input [(ngModel)]="facility.prioridade.rotina" type="number" class="form-control" name="rotina">
+          </div>
+          <label class="col-md-2 col-form-label">Horas</label>
+        </div>
+        <div class="col-md-9 rowPermitirUrgencia">
+            <div class="checkbox">
+              <nb-checkbox name="permitirUrgencia" [(ngModel)]="facility.prioridade.permitirUrgencia">Permitir exames urgente</nb-checkbox>
+            </div>
+          </div>
+        <div *ngIf="facility.prioridade.permitirUrgencia" class="row col-md-12 rowUrgencia">
+          <label class="col-md-2 col-form-label">Urgência</label>
+          <div class="col-md-2">
+            <input [(ngModel)]="facility.prioridade.urgencia" type="number" class="form-control" name="urgencia">
+          </div>
+          <label class="col-md-2 col-form-label">Horas</label>
+        </div>
+        <div class="col-md-9 rowPermitirCritico">
+          <div class="checkbox">
+            <nb-checkbox name="permitirCritico" [(ngModel)]="facility.prioridade.permitirCritico">Permitir exames críticos</nb-checkbox>
+          </div>
+        </div>
+        <div *ngIf="facility.prioridade.permitirCritico" class="row col-md-12 rowCritica">
+        <label class="col-md-2 col-form-label">Crítico</label>
+        <div class="col-md-2">
+          <input [(ngModel)]="facility.prioridade.critico" type="number" class="form-control" name="critico">
+        </div>
+        <label class="col-md-2 col-form-label">Horas</label>
+        </div>
+      </div>
+    </nb-tab>
+    <nb-tab tabTitle="Endereço">
+      <div class="col-md-12 row">
+        <div class="form-group row col-md-12">
+          <label for="inputcep" class="col-md-2 col-form-label">Cep</label>
+          <div class="col-md-4">
+            <input mask="00000-000" [(ngModel)]="facility.endereco.cep" (change)="BuscaCEP()" type="text" class="form-control" name="cep"
+              placeholder="CEP">
+          </div>
+        </div>
+        <div class="form-group row col-md-12">
+          <label for="inputEndereco" class="col-md-2 col-form-label">Endereço</label>
+          <div class="col-md-10">
+            <input [(ngModel)]="facility.endereco.endereco" type="text" class="form-control" name="endereco" placeholder="Rua, Av.">
+          </div>
+        </div>
+        <div class="form-group row col-md-12">
+          <label for="inputNumero" class="col-md-2 col-form-label">Número</label>
+          <div class="col-md-3">
+            <input [(ngModel)]="facility.endereco.numero" type="text" class="form-control" name="numero" placeholder="nº">
+          </div>
+          <label for="inputComplemento" class="col-md-3 col-form-label">Complemento</label>
+          <div class="col-md-4">
+            <input [(ngModel)]="facility.endereco.complemento" type="text" class="form-control" name="complemento" placeholder="Complemento">
+          </div>
+        </div>
+        <div class="form-group row col-md-12">
+          <label for="inputBairro" class="col-md-2 col-form-label">Bairro</label>
+          <div class="col-md-3">
+            <input [(ngModel)]="facility.endereco.bairro" type="text" class="form-control" name="bairro" placeholder="Bairro">
+          </div>
+          <label for="inputCidade" class="col-md-1 col-form-label">Cidade</label>
+          <div class="col-md-3">
+            <input [(ngModel)]="facility.endereco.cidade" type="text" class="form-control" name="cidade" placeholder="Cidade">
+          </div>
+          <label for="inputUF" class="col-md-1 col-form-label">UF</label>
+          <div class="col-md-2">
+            <input [(ngModel)]="facility.endereco.uf" type="text" class="form-control" name="uf" placeholder="uf">
+          </div>
+        </div>
+        <div class="form-group row col-md-12">
+          <label for="inputObs" class="col-md-2 col-form-label">Obs</label>
+          <div class="col-md-10">
+            <textarea [(ngModel)]="facility.endereco.obs" cols="3" rows="3" class="form-control" name="obs" placeholder="Obs"></textarea>
+          </div>
+        </div>
+      </div>
+    </nb-tab>
+    <nb-tab tabTitle="Lista de Contatos">
+      <div class="form-group row col-md-12">
+        <label for="inputEndereco" class="col-md-2 col-form-label">Contato</label>
+        <div class="col-md-3">
+          <input [(ngModel)]="contato.contato" type="text" class="form-control" name="contato" placeholder="Contato">
+        </div>
+        <label for="inputEndereco" class="col-md-2 col-form-label">Telefone</label>
+        <div class="col-md-3">
+          <input mask="(00)0000-00000" [(ngModel)]="contato.telefone" type="text" class="form-control" name="telefone" placeholder="(xx)-xxxxx-xxxx">
+        </div>
+        <div class="col-md-2">
+          <input type="button" class="btn btn-md btn-primary" (click)="AddContato()" value="Adicionar">
+        </div>
+      </div>
+      <div class="form-group row col-md-12">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Contato</th>
+              <th>Telefone</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let contato of facility.listaContato">
+              <td>{{contato.contato}}</td>
+              <td>{{contato.telefone}}</td>
+              <td>
+                <a (click)="DeletarContato(contato)" disabled class="btntr">
+                  <i title="Deletar" class="fa fa-times fntdeletar" aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </nb-tab>
+  </nb-tabset>
+  <div class="DvBotoes modal-footer row col-md-12">
+    <div class="col-md-6 modal-footer-log">
+      <label>{{facility.log.updateUsuarioId}} - {{facility.log.updateDataEncerramento}}</label>
+    </div>
+
+    
+    <div class="modal-footer row col-md-12 DvBotoes">
+      <button class="btnCancelar btn btn-md btn-primary" (click)="Cancelar()">Cancelar</button>
+      <button class="btnSalvar btn btn-md btn-primary" (click)="Salvar()">Salvar</button>
+    </div>
+  </div>
+    <!-- </form> -->
+</div>

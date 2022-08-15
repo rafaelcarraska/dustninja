@@ -1,0 +1,138 @@
+
+<div class="modal-header">
+  <span>{{ modalHeader }}</span>
+  <button class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="dustModal">
+    <nb-tabset>
+      <nb-tab tabTitle="Empresa">
+        <div class="col-md-12 row">
+          <div class="form-group row col-md-12">
+            <label for="inputrazaosocial" class="col-sm-3 col-form-label">Razão Social</label>
+            <div class="col-sm-9">
+              <input id="razaoSocial" name="razaoSocial" class="form-control" required minlength="4" [(ngModel)]="empresa.razaoSocial">
+              <ap-vmessage *ngIf="erroRazaoSocial" text="{{erroRazaoSocial}}"> </ap-vmessage>
+            </div>
+          </div>
+          <div class="form-group row col-md-12">
+            <label for="inputNomeFantasia" class="col-sm-3 col-form-label">Nome Fantasia</label>
+            <div class="col-sm-9">
+              <input [(ngModel)]="empresa.nomeFantasia" type="text" class="form-control" name="nomeFantasia" placeholder="Nome Fantasia">
+              <ap-vmessage *ngIf="erroNomeFantasia" text="{{erroNomeFantasia}}"> </ap-vmessage>
+            </div>
+          </div>
+          <div class="form-group row col-md-12">
+            <label for="inputCNPJ" class="col-sm-3 col-form-label">CNPJ</label>
+            <div class="col-sm-9">
+              <input mask="00.000.000/0000-00" [(ngModel)]="empresa.cnpj" type="text" class="form-control" name="cnpj">
+            </div>
+          </div>
+          <div class="form-group row col-md-12">
+            <label for="inputResponsavel" class="col-sm-3 col-form-label">Responsável</label>
+            <div class="col-sm-9">
+              <input [(ngModel)]="empresa.responsavel" type="text" class="form-control" name="responsavel" placeholder="Responsável">
+            </div>
+          </div>
+          <div class="form-group row col-md-12">
+            <div class="offset-sm-3 col-sm-3">
+              <div class="checkbox">
+                <nb-checkbox name="status" [(ngModel)]="empresa.status">Ativo</nb-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-tab>
+      <nb-tab tabTitle="Endereço">
+        <div class="col-md-12 row">
+          <div class="form-group row col-md-12">
+            <label for="inputcep" class="col-sm-2 col-form-label">Cep</label>
+            <div class="col-sm-4">
+              <input mask="00000-000" [(ngModel)]="empresa.endereco.cep" (change)="BuscaCEP()" type="text" class="form-control" name="cep" placeholder="CEP">
+            </div>
+          </div>
+          <div class="form-group row col-md-12">
+            <label for="inputEndereco" class="col-sm-2 col-form-label">Endereço</label>
+            <div class="col-sm-10">
+              <input [(ngModel)]="empresa.endereco.endereco" type="text" class="form-control" name="endereco" placeholder="Rua, Av.">
+            </div>
+          </div>
+          <div class="form-group row col-md-12">
+            <label for="inputNumero" class="col-sm-2 col-form-label">Número</label>
+            <div class="col-sm-3">
+              <input [(ngModel)]="empresa.endereco.numero" type="text" class="form-control" name="numero" placeholder="nº">
+            </div>
+            <label for="inputComplemento" class="col-sm-3 col-form-label">Complemento</label>
+            <div class="col-sm-4">
+              <input [(ngModel)]="empresa.endereco.complemento" type="text" class="form-control" name="complemento" placeholder="Complemento">
+            </div>
+          </div>
+          <div class="form-group row col-md-12">
+            <label for="inputBairro" class="col-sm-2 col-form-label">Bairro</label>
+            <div class="col-sm-3">
+              <input [(ngModel)]="empresa.endereco.bairro" type="text" class="form-control" name="bairro" placeholder="Bairro">
+            </div>
+            <label for="inputCidade" class="col-sm-1 col-form-label">Cidade</label>
+            <div class="col-sm-3">
+              <input [(ngModel)]="empresa.endereco.cidade" type="text" class="form-control" name="cidade" placeholder="Cidade">
+            </div>
+            <label for="inputUF" class="col-sm-1 col-form-label">UF</label>
+            <div class="col-sm-2">
+              <input [(ngModel)]="empresa.endereco.uf" type="text" class="form-control" name="uf" placeholder="uf">
+            </div>
+          </div>
+          <div class="form-group row col-md-12">
+            <label for="inputObs" class="col-sm-2 col-form-label">Obs</label>
+            <div class="col-sm-10">
+              <textarea [(ngModel)]="empresa.endereco.obs" cols="3" rows="3" class="form-control" name="obs" placeholder="Obs"></textarea>
+            </div>
+          </div>
+        </div>
+      </nb-tab>
+      <nb-tab tabTitle="Lista de Contatos">
+          <div class="form-group row col-md-12">
+            <label for="inputEndereco" class="col-sm-2 col-form-label">Contato</label>
+            <div class="col-sm-3">
+              <input [(ngModel)]="contato.contato" type="text" class="form-control" name="contato" placeholder="Contato">
+            </div>
+            <label for="inputEndereco" class="col-sm-2 col-form-label">Telefone</label>
+            <div class="col-sm-3">
+              <input mask="(00)0000-00000" [(ngModel)]="contato.telefone" type="text" class="form-control" name="telefone" placeholder="(xx)-xxxxx-xxxx">
+            </div>
+            <div class="col-sm-2">
+              <input type="button" class="btn btn-md btn-primary" (click)="AddContato()" value="Adicionar">
+            </div>
+          </div>
+          <div class="form-group row col-md-12">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Contato</th>
+                  <th>Telefone</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let contato of empresa.listaContato">
+                  <td>{{contato.contato}}</td>
+                  <td>{{contato.telefone}}</td>
+                  <td>
+                    <a (click)="DeletarContato(contato)" disabled class="btntr">
+                      <i title="Deletar" class="fa fa-times fntdeletar" aria-hidden="true"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </nb-tab>
+    </nb-tabset>
+    <div class="modal-footer row col-md-12 DvBotoes">
+      <div class="col-sm-6 modal-footer-log">
+        <label>{{empresa.log.updateUsuarioId}} - {{empresa.log.updateDataEncerramento}}</label>
+      </div>
+        <button class="btnCancelar btn btn-md btn-primary" (click)="closeModal()">Cancelar</button>
+        <button class="btnSalvar btn btn-md btn-primary" (click)="Salvar()">Salvar</button>
+    </div>
+</div>

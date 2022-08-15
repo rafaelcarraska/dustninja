@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <span>{{ modalHeader }}</span>
+  <button class="close" aria-label="Close" (click)="Cancelar()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="dustModal">
+  <div class="col-md-12 row">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Nome</th>
+          <th>Modalidade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tipoEstudo of listatipoEstudo">
+          <td><input type="checkbox" (change)="changeValue()" [(ngModel)]="tipoEstudo.status" /></td>
+          <td>{{ tipoEstudo.descricao }}</td>
+          <td>{{ tipoEstudo.filtro1 }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal-footer row col-md-12">
+    <button class="btn btn-sm btnTpEstudo btn-danger" (click)="Cancelar()">
+      Cancelar
+    </button>
+    <button [disabled]="!count" class="btn btn-sm btnTpEstudo btn-success" (click)="Selecionar()">
+      Selecionar
+    </button>
+    <button [disabled]="!botaoAssinar || !count"  class="btn btn-sm btnTpEstudo btn-primary" (click)="Assinar()">
+      Assinar
+    </button>
+  </div>
+</div>

@@ -1,0 +1,201 @@
+<nb-card class="nbCard-workList">
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-3">
+        <label>Worklist</label>
+        <a *ngIf="!load" (click)="refresh()" class="btntr col-md-1">
+          <i title="Atualizar lista de exames" class="fa fa-sync-alt btnSettings" aria-hidden="true"></i>
+        </a>
+        <img *ngIf="load" src="assets/images/spinner/dustSpinner.gif" class="imgSpinner">
+      </div>
+      <div class="col-md-4">
+        <div *ngIf="listaFiltro && !load" class="dropdown ghost-dropdown row col-md-8" ngbDropdown>
+          <label class="col-sm-3 col-form-label">Filtro:</label>
+          <select [disabled]="filtroPage != ''" [(ngModel)]="filtroSelecionado" #selectFiltro
+            (change)="SelecionaFiltro(selectFiltro.value)" class="DpFiltro col-md-8 form-control">
+            <option value="0">Todos</option>
+            <option *ngFor="let option of listaFiltro" [value]="option.Id">{{ option.descricao }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-5 buscaWorkList form-group">
+        <div class="row">
+          <label class="col-md-2">Buscar</label>
+          <input [disabled]="filtroPage  != ''" (keyup)="setfiltro()" type="text"
+            class="form-control col-md-7 buscaWorkList" name="searchString" [(ngModel)]="searchString" />
+          <a (click)="Configuracao()" class="btntr col-md-1">
+            <i title="Configurações" class="fa fa-cogs btnSettings" aria-hidden="true"></i>
+          </a>
+          <a *ngIf="!load" (click)="Estatisticas()" class="btntr col-md-1">
+            <i title="Estatisticas" class="fa fa-chart-line btnEstatiscas" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <toaster-container [toasterconfig]="config"></toaster-container>
+    <div class="row divConfig form-group" *ngIf="exibirDivConfiguracoes">
+      <div class="col-md-2">
+        <label>Linhas por pág.</label>
+        <input type="number" class="form-control col-md-10" [(ngModel)]="configuracao.pageSize" />
+      </div>
+      <div class="col-md-2">
+        <label>Filtro padrão.</label>
+        <select [(ngModel)]="configuracao.filtroPadrao" class="DpFiltro col-md-8 form-control">
+          <option value="0">Todos</option>
+          <option *ngFor="let option of listaFiltro" [value]="option.Id">{{ option.descricao }}</option>
+        </select>
+      </div>
+      <div class="col-sm-3 ">
+        <button class="btn btn-md btn-primary btnSalvarConfiguracao" (click)="SalvarConfiguracao()">Salvar
+          Configuração</button>
+      </div>
+    </div>
+    <table class="table table-hover tableWorklist">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Data do Exame</th>
+          <th>Data do Envio</th>
+          <th title="Tempo para Laudar.">TPL</th>
+          <th>Paciente</th>
+          <th title="Modalidade do Exame.">Mod.</th>
+          <th>Body Party / Descrição</th>
+          <th>Instituição</th>
+          <th>Unidade</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class ="destaqueAlertaCritico" [ngClass]="fileDCM.prioridade == 'urgente'? 'warning'
+        : fileDCM.prioridade == 'critico'? 'danger' : ''"
+         *ngFor="let fileDCM of pagedItems" [contextMenu]="Menu" [contextMenuSubject]="fileDCM">
+          <td class="tdIcones tdIconesLeft">
+            <a (click)="Notas(fileDCM)" class="btntr notification">
+              <span *ngIf="fileDCM.countNota > 0" class="badgeNota">{{fileDCM.countNota}}</span>
+              <i [ngClass]="fileDCM.pendente ? 'fa-comments' : 'fa-comment'" title="Notas"
+                class="fa col-md-1 btncomment" aria-hidden="true"></i>
+            </a>
+            <a (click)="Laudo(fileDCM)" class="btntr ">
+              <i [ngClass]="fileDCM.statusExamesFormatado == 'confirmar'? 'btnQuestion fa fa-question'
+                : fileDCM.statusExamesFormatado == 'laudar'? 'fa fa-file-medical btnFileMedical'
+                : fileDCM.statusExamesFormatado == 'transmissao'? 'fa fa-hourglass-half btnTransmissao'
+                : fileDCM.statusExamesFormatado == 'laudando'? 'fa fa-user-lock btnbloq'
+                : fileDCM.statusExamesFormatado == 'laudado'? 'fa fa-user-md btnMedico'
+                : fileDCM.statusExamesFormatado == 'desconsiderado'? 'far fa-trash-alt btnFileBloq'
+                : fileDCM.statusExamesFormatado == 'comparacao'? 'fa fa-file-medical-alt btnFileSearch'
+                : 'fa fa-exclamation-triangle'" title="{{fileDCM.statusExamesDescricao}}"
+                class="col-md-1 btnstatusLaudo" aria-hidden="true"></i>
+            </a>
+            <a (click)="Anexos(fileDCM)" class="btntr notification">
+              <span *ngIf="fileDCM.countAnexo > 0" class="badgeAnexo">{{fileDCM.countAnexo}}</span>
+              <i title="Anexos" class="fa fa-paperclip col-md-1 btnpaperclip" aria-hidden="true"></i>
+            </a>
+          </td>
+          <td title="Data do Exame: {{fileDCM.date_study_formatada}} - Data do Envio: {{fileDCM.data_envio_formatada}}">
+            {{ fileDCM.date_study_formatada }}
+          </td>
+          <td title="Data do Exame: {{fileDCM.date_study_formatada}} - Data do Envio: {{fileDCM.data_envio_formatada}}">
+            {{ fileDCM.data_envio_formatada }}
+          </td>
+          <td [ngClass]="fileDCM.tempoParaLaudar.substr(0,1) == '-'? 'tdTPLatrasado': ''"
+            title="Tempo restante para o exame ser laudado {{fileDCM.tempoParaLaudar}}. Confirmação em {{fileDCM.dateConfirmacaoFormatada}}">
+            {{ fileDCM.tempoParaLaudar }}
+          </td>
+          <td (dblclick)="dbfiltro(fileDCM.pacienteNome)"
+            title="Sexo: {{fileDCM.paciente.sexo}} - Data Nasc.: {{fileDCM.paciente.dataNascimento_formatada}}">
+            {{ fileDCM.pacienteNome }}
+          </td>
+          <td (dblclick)="dbfiltro(fileDCM.modality)">{{ fileDCM.modality }}</td>
+          <td (dblclick)="dbfiltro(fileDCM.body_part)">{{ fileDCM.body_part }} <span
+              *ngIf="fileDCM.body_part && fileDCM.studyDesc">/</span>
+            {{ fileDCM.studyDesc }}</td>
+          <td (dblclick)="dbfiltro(fileDCM.institution)">{{ fileDCM.institution }}</td>
+          <td (dblclick)="dbfiltro(fileDCM.facilityDesc)">{{ fileDCM.facilityDesc }}</td>
+          <td class="tdIcones tdIconesRigth">
+            <a *ngIf="fileDCM.statusExamesFormatado == 'laudado' || fileDCM.subStatusExamesFormatado == 'laudar_reiterpretacao'"
+              (click)="SelecionarTemplateImpressao(fileDCM)" class="btntr btnFilePdf">
+              <i title="Download do laudo em pdf." class="far fa-file-pdf  col-md-1" aria-hidden="true"></i>
+            </a>
+            <a (click)="OpenOhif(fileDCM)" class="btntr btnFileDCM">
+              <i title="Visualizar DICOM" class="fa fa-search  col-md-1" aria-hidden="true"></i>
+            </a>
+            <a (click)="seguir(fileDCM)" class="btntr btnFileDCM">
+              <i [ngClass]="fileDCM.favorito ? 'favorito' : 'naoFavorito'" title="Acompanhar esse exame."
+                class="fa fa-star  col-md-1" aria-hidden="true"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <context-menu menuClass="menuItem" [useBootstrap4]="true" #Menu>
+      <ng-template contextMenuItem (execute)="AlterarExame($event.item)">
+        <i class="fa fa-notes-medical col-md-1 btnnotemedical" aria-hidden="true"></i> Editar Exame
+      </ng-template>
+      <ng-template contextMenuItem (execute)="AbrirModalDesmembrar($event.item)">
+        <i class="fa fa-unlink col-md-1 btnpaperclip" aria-hidden="true"></i> Desmembrar
+      </ng-template>
+
+      <ng-template contextMenuItem [subMenu]="SubMenu">
+        <i class="fa fa-file col-md-1 btnpaperclip" aria-hidden="true"></i> DICOM
+      </ng-template>
+      <context-menu menuClass="menuItem" [useBootstrap4]="true" #SubMenu>
+        <ng-template contextMenuItem (execute)="DownloadDICOM($event.item)">
+          <i class="fa fa-download col-md-1 btnpaperclip" aria-hidden="true"></i> Download DICOM
+        </ng-template>
+        <ng-template [visible]="viewOsirix" contextMenuItem (execute)="ViewOsirix($event.item)">
+          <i class="fa fa-briefcase-medical col-md-1 btnpaperclip" aria-hidden="true"></i> Abrir no Osirix
+        </ng-template>
+        <ng-template [visible]="viewHoros" contextMenuItem (execute)="ViewHoros($event.item)">
+          <i class="fa fa-briefcase-medical col-md-1 btnpaperclip" aria-hidden="true"></i> Abrir no Horos
+        </ng-template>
+      </context-menu>
+
+      <ng-template contextMenuItem (execute)="ExamesAnteriores($event.item)">
+        <i title="Visualizar exames anteriores" class="fa fa-briefcase-medical col-md-1 btnpaperclip"
+          aria-hidden="true"></i> Exames anteriores
+      </ng-template>
+      <ng-template contextMenuItem let-item (execute)="FiltraPaciente($event.item)">
+        <i title="Filtrar paciente" class="fa fa-filter col-md-1 btnfilter" aria-hidden="true"></i> Filtrar paciente
+      </ng-template>
+      <ng-template contextMenuItem let-item (execute)="PagePaciente($event.item)">
+        <i title="Detalhes do paciente" class="fa fa-user col-md-1 btnuser" aria-hidden="true"></i> Detalhes do paciente
+      </ng-template>
+      <ng-template contextMenuItem (execute)="Log($event.item)">
+        <i class="fa fa-eye col-md-1 btnpaperclip" aria-hidden="true"></i> Visualizar log
+      </ng-template>
+    </context-menu>
+  </nb-card-body>
+</nb-card>
+
+<div class="row pagWorlist">
+  <div class="col-md-4">
+    <nav class="ng2-smart-pagination-nav ng-star-inserted">
+      <ul class="ng2-smart-pagination pagination">
+        <li class="ng2-smart-page-item page-item" [ngClass]="{ disabled: pager.currentPage === 1 }">
+          <a aria-label="First" class="ng2-smart-page-link page-link" (click)="setPage(1)">Início</a>
+        </li>
+        <li class="ng2-smart-page-item page-item" [ngClass]="{ disabled: pager.currentPage === 1 }">
+          <a aria-label="Prev" class="ng2-smart-page-link page-link page-link-prev"
+            (click)="setPage(pager.currentPage - 1)">Anterior</a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{ active: pager.currentPage === page }"
+          class="ng2-smart-page-item page-item active ng-star-inserted">
+          <span (click)="setPage(page)" class="ng2-smart-page-link page-link ng-star-inserted">
+            <a>{{ page }}</a>
+          </span>
+        </li>
+        <li class="ng2-smart-page-item page-item">
+          <a aria-label="Next" class="ng2-smart-page-link page-link page-link-next"
+            [ngClass]="{ disabled: pager.currentPage === pager.totalPages }"
+            (click)="setPage(pager.currentPage + 1)">Próximo</a>
+        </li>
+        <li class="ng2-smart-page-item page-item" [ngClass]="{ disabled: pager.currentPage === pager.totalPages }">
+          <a aria-label="Last" class="ng2-smart-page-link page-link" (click)="setPage(pager.totalPages)">Último</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

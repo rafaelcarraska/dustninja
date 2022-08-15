@@ -1,0 +1,34 @@
+<div class="modal-header">
+    <span>{{ modalHeader }}</span>
+    <button class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="dustModal">
+      <div class="form-group row col-md-12">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Usuário</th>
+                <th>Data</th>
+                <th>Ação</th>
+                <th>Obs.</th>
+              </tr>
+            </thead>
+            <tbody>
+                  <tr *ngFor="let evento of listaEventos">
+                    <td>
+                      <nb-user [picture]="" class="historico-picture" [name]="evento.usuario" [title]="evento.perfil" size="medium"></nb-user>
+                    </td>
+                    <td>{{evento.data_formatada}}</td>
+                    <td>{{evento.acao}}</td>
+                    <td><p class="ellipse" [title]="evento.Obs" [innerHtml]="evento.Obs"></p></td>
+                  </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  <div class="modal-footer">
+    <button class="btn btn-md btn-primary" data-dismiss="modal" aria-hidden="true" (click)="closeModal()">Cancelar</button>
+</div>
+ 

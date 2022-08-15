@@ -1,0 +1,53 @@
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-md-6">
+        <label>Tipos de Exames</label>
+      </div>
+      <div class="col-md-4 buscar form-group">
+        <!-- <div class="row ">
+              <label class="col-md-3">Buscar</label>
+              <input (keyup)="setfiltro()" type="text" class="form-control col-md-7 buscar" name="searchString"
+                [(ngModel)]="searchString" />
+            </div> -->
+      </div>
+      <div class="col-md-2">
+        <label class="label-btn-novo"><a (click)="Novo()"><i title="Novo" class="fa fa-plus fnteditar"
+              aria-hidden="true"></i>Novo</a></label>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <toaster-container [toasterconfig]="config"></toaster-container>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Modalidade</th>
+          <th>Ativo</th>
+          <th>Criado por</th>
+          <th>Data de Criação</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr (dblclick)="Modal(tipoExame)" *ngFor="let tipoExame of listaTipoExames">
+          <td>{{tipoExame.nome}}</td>
+          <td>{{tipoExame.modalidade}}</td>
+          <td><i *ngIf="tipoExame.status" title="Status" class="fa fa-check fntstatus" aria-hidden="true"></i></td>
+          <td>{{tipoExame.log.insertUsuarioId}}</td>
+          <td>{{tipoExame.log.insertDataFormatada}}</td>
+          <td class="tdIcones">
+            <a (click)="Modal(tipoExame)" disabled class="btntr">
+              <i title="Editar" class="far fa-edit fnteditar" aria-hidden="true"></i>
+            </a>
+            <a (click)="Deletar(tipoExame)" disabled class="btntr">
+              <i title="Deletar" class="fa fa-times fntdeletar" aria-hidden="true"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </nb-card-body>
+</nb-card>

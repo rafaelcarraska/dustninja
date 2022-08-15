@@ -1,0 +1,216 @@
+<h2>Filtro</h2>
+<toaster-container [toasterconfig]="config"></toaster-container>
+<div class="dustForm">
+  <div class="col-md-12 row">
+    <div class="form-group row col-md-12">
+      <label class="col-sm-1 col-form-label">Descrição</label>
+      <div class="col-sm-3">
+        <input id="descricao" name="descricao" class="form-control" required minlength="3"
+          [(ngModel)]="filtro.descricao" #name="ngModel">
+        <ap-vmessage *ngIf="erroDescricao" text="{{erroDescricao}}"> </ap-vmessage>
+      </div>
+      <div class="offset-sm-1 col-sm-1">
+        <div class="checkbox">
+          <nb-checkbox name="status" [(ngModel)]="filtro.status">Ativo</nb-checkbox>
+        </div>
+      </div>
+      <div class="offset-sm-1 col-sm-1">
+        <div class="checkbox">
+          <nb-checkbox name="particular" [(ngModel)]="filtro.particular" (change)="ParticularChange()">Particular
+          </nb-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 row">
+    <nb-tabset (changeTab)="OnTabChange($event)">
+      <nb-tab *ngIf="!filtro.particular" tabTitle="Perfil" [active]="tabIndex == 'Perfil'">
+        <div class="col-md-12 row">
+          <label class="col-sm-1 col-form-label">Perfil</label>
+          <div class="col-sm-4">
+            <select [(ngModel)]="filtroPerfilSelecionado.Id" class="form-control">
+              <option *ngFor="let option of listaComboPerfil" [value]="option.Id">{{ option.descricao }}</option>
+            </select>
+          </div>
+          <div class="col-sm-2">
+            <button class="btnAddPerfil btn btn-md btn-primary"
+              (click)="AddPerfil(filtroPerfilSelecionado)">Add</button>
+          </div>
+        </div>
+
+        <div class="col-md-12 row tablePerfil">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Perfil</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let filtroPerfil of filtro.listaPerfil">
+                <td>{{filtroPerfil.descricao}}</td>
+                <td>
+                  <a (click)="DeletarFiltroPerfil(filtroPerfil)" disabled class="btntr">
+                    <i title="Deletar" class="fa fa-times fntdeletar" aria-hidden="true"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </nb-tab>
+      <nb-tab tabTitle="Filtro Status" [active]="tabIndex == 'Filtro Status'">
+        <div class="col-md-12 row">
+          <label class="col-sm-1 col-form-label">Status</label>
+          <div class="col-sm-4">
+            <select [(ngModel)]="filtroStatusSelecionado.Id" class="form-control">
+              <option *ngFor="let option of listaComboStatus" [value]="option.Id">{{ option.descricao }}</option>
+            </select>
+          </div>
+          <div class="col-sm-2">
+            <button class="btnAddStatus btn btn-md btn-primary"
+              (click)="AddStatus(filtroStatusSelecionado)">Add</button>
+          </div>
+        </div>
+
+        <div class="col-md-12 row tableStatus">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let filtroStatus of filtro.listaFiltroStatus">
+                <td>{{filtroStatus.descricao}}</td>
+                <td>
+                  <a (click)="DeletarFiltroStatus(filtroStatus)" disabled class="btntr">
+                    <i title="Deletar" class="fa fa-times fntdeletar" aria-hidden="true"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </nb-tab>
+      <nb-tab *ngIf="false" tabTitle="Filtro Datas">
+        <div class="col-md-12 row">
+          <label class="col-sm-1 col-form-label">Datas</label>
+          <div class="col-sm-3">
+            <select #selectListaComboDatas class="form-control">
+              <option *ngFor="let option of listaComboDatas" [value]="option.Id">{{ option.descricao }}</option>
+            </select>
+          </div>
+          <div class="col-sm-2 row">
+            <input class="col-sm-7 form-control" type="number">
+            <label class="col-sm-5 col-form-label">Dias</label>
+          </div>
+
+          <div class="col-sm-2">
+            <button class="btnAddDatas btn btn-md btn-primary" (click)="AddDatas()">Add</button>
+          </div>
+        </div>
+
+        <div class="col-md-12 row tableOrdem">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </nb-tab>
+      <nb-tab *ngIf="false" tabTitle="Filtros Gerais">
+        <div class="col-md-12 row">
+          <label class="col-sm-1 col-form-label">Campo</label>
+          <div class="col-sm-3">
+            <select #selectListaComboGerais class="form-control">
+              <option *ngFor="let option of listaComboGerais" [value]="option.Id">{{ option.descricao }}</option>
+            </select>
+          </div>
+          <div class="col-sm-4 row">
+            <input class="col-sm-7 form-control" type="text">
+            <label class="col-sm-5 col-form-label">Valor</label>
+          </div>
+
+          <div class="col-sm-2">
+            <button class="btnAddGerais btn btn-md btn-primary" (click)="AddGerais()">Add</button>
+          </div>
+        </div>
+
+        <div class="col-md-12 row tableOrdem">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </nb-tab>
+      <nb-tab tabTitle="Ordem">
+        <div *ngIf="filtro.listaFiltroOrdem.length == 0"  class="col-md-12 row">
+          <label class="col-sm-1 col-form-label">Ordem</label>
+          <div class="col-sm-4">
+            <select [(ngModel)]="filtroOrdemSelecionado.Id" class="form-control">
+              <option *ngFor="let option of listaComboOrdem" [value]="option.Id">{{ option.descricao }}</option>
+            </select>
+          </div>
+          <div class="col-sm-4">
+            <select [(ngModel)]="filtroOrdemSelecionado.ordem" class="form-control">
+              <option value="Crescente">Crescente</option>
+              <option value="Decrescente">Decrescente</option>
+            </select>
+          </div>
+          <div class="col-sm-2">
+            <button class="btnAddOrdem btn btn-md btn-primary" (click)="AddOrdem(filtroOrdemSelecionado, filtroOrdemSelecionado.ordem)">Add</button>
+          </div>
+        </div>
+
+        <div class="col-md-12 row tableOrdem">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Campo</th>
+                <th>Ordem</th>
+                <!-- <th>Prioridade</th> -->
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let filtroOrdem of filtro.listaFiltroOrdem">
+                <td>{{filtroOrdem.descricao}}</td>
+                <td>{{filtroOrdem.ordem}}</td>
+                <!-- <td>{{filtroOrdem.prioridade}}</td> -->
+                <td>
+                  <!-- <a (click)="UpFiltroOrdem(filtroOrdem)" disabled class="btntr">
+                    <i title="Priorizar" class="fa fa-arrow-up fntup" aria-hidden="true"></i>
+                  </a>
+                  <a (click)="DownFiltroOrdem(filtroOrdem)" disabled class="btntr">
+                    <i title="Rebaixar" class="fa fa-arrow-down fntdown" aria-hidden="true"></i>
+                  </a> -->
+                  <a (click)="DeletarFiltroOrdem(filtroOrdem)" disabled class="btntr">
+                    <i title="Deletar" class="fa fa-times fntdeletar" aria-hidden="true"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </nb-tab>
+
+    </nb-tabset>
+  </div>
+  <div class="modal-footer row col-md-12 DvBotoes">
+    <button class="btnCancelar btn btn-md btn-primary" (click)="Cancelar()">Cancelar</button>
+    <button class="btnSalvar btn btn-md btn-primary" (click)="Salvar()">Salvar</button>
+  </div>
+</div>

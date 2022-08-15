@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+
+  app:
+    image: dustmedicalninja
+    container_name: dustcore
+    ports:
+      - "80:80"
+    network_mode: bridge
+    environment:
+      ROOT_URL: "http://localhost"
+      MONGO_URL: "mongodb://localhost:27017"

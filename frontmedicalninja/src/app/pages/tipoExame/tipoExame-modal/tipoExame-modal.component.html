@@ -1,0 +1,63 @@
+<div class="modal-header">
+  <span>{{ modalHeader }}</span>
+  <button class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="dustModal">
+  <div class="col-md-12 row">
+    <div class="form-group row col-md-12">
+      <label class="col-sm-3 col-form-label">Nome</label>
+      <div class="col-sm-9">
+        <input id="nome" name="nome" class="form-control" required minlength="3" [(ngModel)]="tipoExame.nome" #name="ngModel">
+        <ap-vmessage *ngIf="erroNome" text="{{erroNome}}"> </ap-vmessage>
+      </div>
+    </div>
+    <div class="form-group row col-md-12">
+      <label class="col-sm-3 col-form-label">Modalidade</label>
+      <div class="col-sm-9">
+        <input id="modalidade" name="modalidade" class="form-control" required minlength="3" [(ngModel)]="tipoExame.modalidade" #name="ngModel">
+        <ap-vmessage *ngIf="erroModalidade" text="{{erroModalidade}}"> </ap-vmessage>
+      </div>
+    </div>
+    <div class="form-group row col-md-12">
+      <label class="col-sm-3 col-form-label">Cod. cobrança</label>
+      <div class="col-sm-9">
+        <input id="codCobranca" name="codCobranca" class="form-control" required minlength="3" [(ngModel)]="tipoExame.codCobranca"
+          #name="ngModel">
+        <ap-vmessage *ngIf="erroCodCobranca" text="{{erroCodCobranca}}"> </ap-vmessage>
+      </div>
+    </div>
+    <div class="form-group row col-md-12">
+      <label class="col-sm-3 col-form-label">Palavra chave</label>
+      <div class="col-sm-9">
+        <input id="palavraChave" name="palavraChave" class="form-control" required minlength="3" [(ngModel)]="tipoExame.palavraChave"
+          #name="ngModel">
+        <ap-vmessage *ngIf="erroPalavraChave" text="{{erroPalavraChave}}"> </ap-vmessage>
+      </div>
+    </div>
+    <div class="form-group row col-md-12">
+        <label for="inputMascara" class="col-sm-3 col-form-label">Máscara de laudo</label>
+        <div class="col-sm-9">
+          <select [(ngModel)]="tipoExame.mascaraLaudoId" #selectMascara (change)="onChange(selectMascara.value)" class="form-control">
+            <option *ngFor="let option of listaComboMascara" [value]="option.Id">{{ option.descricao }}</option>
+          </select>
+        </div>
+        <ap-vmessage *ngIf="erroMascara" text="{{erroPalavraChave}}"> </ap-vmessage>
+    </div>
+    <div class="form-group row col-md-12">
+      <div class="offset-sm-3 col-sm-3">
+        <div class="checkbox">
+          <nb-checkbox name="status" [(ngModel)]="tipoExame.status">Ativo</nb-checkbox>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer row col-md-12 DvBotoes">
+    <div class="col-md-6 modal-footer-log">
+      <label>{{tipoExame.log.updateUsuarioId}} - {{tipoExame.log.updateDataEncerramento}}</label>
+    </div>
+      <button class="btnCancelar btn btn-md btn-primary" (click)="closeModal()">Cancelar</button>
+      <button class="btnSalvar btn btn-md btn-primary" (click)="Salvar()">Salvar</button>
+    </div>
+  </div>

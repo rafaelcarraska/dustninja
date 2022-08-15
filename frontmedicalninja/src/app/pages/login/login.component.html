@@ -1,0 +1,51 @@
+
+<div class="my-login-page">
+  <div id="topo_auth">
+  </div>
+  <section class="h-100">
+    <div class="container h-100">
+      <div class="row justify-content-md-center h-100">
+        <div class="card-wrapper">
+          <div id="loginbox" class="tglogin card fat">
+            <div class="card-body">
+              <h4 class="card-title">Fast Pacs</h4>
+              <form (ngSubmit)="teste()" (keydown.enter)="teste()">
+                <div *ngIf="!validacao" class="form-group">
+                  <label>Login</label>
+                  <input [(ngModel)]="autenticacao.login" type="text" name="login" required class="form-control" autocomplete="off" placeholder="Login"
+                    autofocus>
+                </div>
+                <div *ngIf="!validacao" class="form-group">
+                  <label>Senha</label>
+                  <input [(ngModel)]="autenticacao.senha" type="password" name="senha" required class="form-control" placeholder="Senha">
+                </div>
+                <div *ngIf="validacao"  class="form-group">
+                    <label>Empresa</label>
+                  <select #selectEmpresa (change)="onChange(selectEmpresa.value)" class="form-control">
+                    <option *ngFor="let empresa of listaEmpresa" [value]="empresa.Id">{{empresa.descricao}}</option>
+                  </select>
+                </div>
+                <div *ngIf="twofactor"  class="form-group">
+                  <label>two factor</label>
+                  <input [(ngModel)]="autenticacao.pin" type="number" name="login" class="form-control" autocomplete="off" >
+              </div>
+                <div *ngIf="returnLogin" class="form-group row alert alert-danger">
+                  <img *ngIf="load" src="assets/images/spinner/dustSpinner.gif" class="imgSpinnerLogin">
+                  {{returnLogin}}
+                </div>
+                <div class="form-group no-margin">
+                  <button *ngIf="validacao" [disabled]="load" class="btn btn-outline-primary btn-block" (click)="Logar(); $event.preventDefault()">Selecionar Empresa</button>
+                  <button *ngIf="!validacao" [disabled]="load" class="btn btn-outline-primary btn-block" (click)="SelecionarEmpresa(); $event.preventDefault()">Logar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="footer">
+            Copyright &copy; Fastpacs 2019
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+

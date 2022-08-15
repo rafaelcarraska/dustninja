@@ -1,0 +1,115 @@
+<div class="modal-header">
+  <span>Confirmação de Exame para Laudar</span>
+  <button class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="divInformacoes row">
+  <div class="col-md-4">
+    <div class="col-md-12">
+      <strong class="tituloInfo">Paciente:</strong>
+      <label class="info">{{ fileDCM.pacienteNome }}</label>
+    </div>
+    <div class="col-md-12">
+      <strong class="tituloInfo">Data do Envio:</strong>
+      <label class="info">{{ fileDCM.data_envio_formatada }}</label>
+    </div>
+    <div class="col-md-12">
+      <strong class="tituloInfo">Data do exame:</strong>
+      <label class="info">{{ fileDCM.date_study_formatada }}</label>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="col-md-12">
+      <strong class="tituloInfo">Estudo:</strong>
+      <label class="info">{{ fileDCM.studyDesc }}</label>
+    </div>
+    <div class="col-md-12">
+      <strong class="tituloInfo">Modalidade:</strong>
+      <label class="info">{{ fileDCM.modality }}</label>
+    </div>
+    <div class="col-md-12">
+      <strong class="tituloInfo">Departamento:</strong>
+      <label class="info">{{ fileDCM.department }}</label>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="col-md-12">
+      <strong class="tituloInfo">Body Party:</strong>
+      <label class="info">{{ fileDCM.body_part }}</label>
+    </div>
+    <div class="col-md-12">
+      <strong class="tituloInfo">Unidade:</strong>
+      <label class="info">{{ fileDCM.facilityDesc }}</label>
+    </div>
+    <div class="col-md-12">
+      <strong class="tituloInfo">Instituição:</strong>
+      <label class="info">{{ fileDCM.institution }}</label>
+    </div>
+  </div>
+</div>
+<div class="divConfirmacao row col-md-12">
+  <div class="divPrioridade row col-md-12">
+    <div class="DvBotoes row col-md-10">
+      <div *ngIf="prioridade.permitirUrgencia || prioridade.permitirCritico">
+          <label>Prioridade: </label>
+          <input class="rbRotina" type="radio" name="prioridade" value="normal" [(ngModel)]="confirmacao.prioridade"/>Rotina
+      </div>
+      <div *ngIf="prioridade.permitirUrgencia">
+          <input type="radio" name="prioridade" value="urgente" [(ngModel)]="confirmacao.prioridade"/>Urgente
+      </div>
+      <div *ngIf="prioridade.permitirCritico">
+          <input type="radio" name="prioridade" value="critico" [(ngModel)]="confirmacao.prioridade" />Crítico
+      </div>
+    </div>
+    <div class="DvBotoes col-md-1">
+        <a (click)="Anexos(fileDCM)" class="btntr notification">
+            <span *ngIf="fileDCM.countAnexo > 0"  class="badgeAnexo">{{fileDCM.countAnexo}}</span>
+          <i
+            title="Anexos"
+            class="fa fa-paperclip col-md-1 btnpaperclip"
+            aria-hidden="true"
+          ></i>
+        </a>
+    </div>
+    <div class="DvBotoes col-md-1">
+      <a (click)="AbrirModalDesmembrar(fileDCM)" class="btntr">
+        <i
+          title="Desmembrar"
+          class="fa fa-unlink col-md-1 btnpaperclip"
+          aria-hidden="true"
+        ></i>
+      </a>
+  </div>
+  </div>
+  <div class="form-group row col-md-12">
+      <label for="inputMascara" class="col-sm-3 col-form-label">Template de impressão</label>
+      <div class="col-sm-5">
+        <select [(ngModel)]="confirmacao.templateImpressaoid" #selectTemplate class="form-control">
+          <option *ngFor="let option of listaTemplateImpressao" [value]="option.Id">{{ option.descricao }}</option>
+        </select>
+      </div>
+  </div>
+  <div class="form-group row col-md-12">
+    <label for="inputObs" class="col-md-3 col-form-label">História Clínica</label>
+    <div class="col-md-9">
+      <textarea [(ngModel)]="confirmacao.historiaClinica" cols="3" rows="7" class="form-control" name="obs" placeholder="História Clínica"></textarea>
+    </div>
+  </div>
+</div>
+<div class="dustModal">
+  <div class="modal-footer row col-md-12">
+    <button class="btn btn-sm btn-success" (click)="Confirmacao('laudar')">
+      {{confirmacao.desmembrar.novosExames?'Desmembrar e Laudar':'Laudar'}}
+    </button>
+    <button class="btn btn-sm btn-warning" (click)="Confirmacao('comparacao')">
+      Comparação
+    </button>
+    <button class="btn btn-sm btn-danger" (click)="Confirmacao('desconsiderado')">
+      Desconsiderar
+    </button>
+    <button class="btn btn-sm btn-primary" (click)="closeModal()">
+      Cancelar
+    </button>
+  </div>
+</div>

@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "9408bfd5-63fd-4396-9993-79adddc5a2e0",
+		"name": "DustMedicalNinja",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Listar",
+			"item": [
+				{
+					"name": "Listar Mascara Laudo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{api.dust}}/MascaraLaudo/lista",
+							"host": [
+								"{{api.dust}}"
+							],
+							"path": [
+								"MascaraLaudo",
+								"lista"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Empresa Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "{{api.dust}}/empresa/Lista/5b8746dc69ad352838333714",
+							"host": [
+								"{{api.dust}}"
+							],
+							"path": [
+								"empresa",
+								"Lista",
+								"5b8746dc69ad352838333714"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Perfil",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_ninja}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{api.dust}}/perfil/lista",
+							"host": [
+								"{{api.dust}}"
+							],
+							"path": [
+								"perfil",
+								"lista"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "teste",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{api.dust}}/api/values",
+					"host": [
+						"{{api.dust}}"
+					],
+					"path": [
+						"api",
+						"values"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BuscaCEP",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://viacep.com.br/ws/04713-000/json",
+					"protocol": "https",
+					"host": [
+						"viacep",
+						"com",
+						"br"
+					],
+					"path": [
+						"ws",
+						"04713-000",
+						"json"
+					]
+				},
+				"description": "Busca o endereço atravez do cep"
+			},
+			"response": []
+		},
+		{
+			"name": "Input",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{api.dust}}/sistema/input/facility_5",
+					"host": [
+						"{{api.dust}}"
+					],
+					"path": [
+						"sistema",
+						"input",
+						"facility_5"
+					]
+				},
+				"description": "Realiza um input de dados no sistema."
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9808349e-2ec8-4b86-ae3a-e664f4366784",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"postman.setGlobalVariable(\"token_ninja\", \"Bearer \" + data.id);"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"login\": \"admin\",\n\t\"senha\": \"123\",\n\t\"empresaId\" : {{empresaId}}\n}"
+				},
+				"url": {
+					"raw": "{{api.dust}}/Autenticacao/Autentica",
+					"host": [
+						"{{api.dust}}"
+					],
+					"path": [
+						"Autenticacao",
+						"Autentica"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{api.dust}}/Autenticacao/Logoff",
+					"host": [
+						"{{api.dust}}"
+					],
+					"path": [
+						"Autenticacao",
+						"Logoff"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

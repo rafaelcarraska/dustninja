@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DustMedicalNinja", "DustMedicalNinja\DustMedicalNinja.csproj", "{41B831DC-E81A-4F85-B2D8-55249F154873}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		DEV|Any CPU = DEV|Any CPU
+		Release|Any CPU = Release|Any CPU
+		UAT|Any CPU = UAT|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{41B831DC-E81A-4F85-B2D8-55249F154873}.Debug|Any CPU.ActiveCfg = UAT|Any CPU
+		{41B831DC-E81A-4F85-B2D8-55249F154873}.Debug|Any CPU.Build.0 = UAT|Any CPU
+		{41B831DC-E81A-4F85-B2D8-55249F154873}.DEV|Any CPU.ActiveCfg = DEV|Any CPU
+		{41B831DC-E81A-4F85-B2D8-55249F154873}.DEV|Any CPU.Build.0 = DEV|Any CPU
+		{41B831DC-E81A-4F85-B2D8-55249F154873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41B831DC-E81A-4F85-B2D8-55249F154873}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41B831DC-E81A-4F85-B2D8-55249F154873}.UAT|Any CPU.ActiveCfg = Debug|Any CPU
+		{41B831DC-E81A-4F85-B2D8-55249F154873}.UAT|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4965064A-04EC-4E57-9DD5-FE47B286739B}
+	EndGlobalSection
+EndGlobal

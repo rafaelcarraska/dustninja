@@ -1,0 +1,4 @@
+CREATE TABLE public.syncninja (
+	study_fk int NOT NULL,
+	filedcm varchar NOT NULL
+);

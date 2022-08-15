@@ -1,0 +1,49 @@
+<h2>Exame</h2>
+<toaster-container [toasterconfig]="config"></toaster-container>
+<div class="dust">
+  <div class="form-group row col-md-12">
+    <label class="col-sm-1 col-form-label">Descrição</label>
+    <div class="col-sm-4">
+      <input id="studyDesc" name="studyDesc" class="form-control" [(ngModel)]="fileDCM.studyDesc" #name="ngModel">
+      <ap-vmessage *ngIf="erroStudyDesc" text="{{erroStudyDesc}}"> </ap-vmessage>
+    </div>
+  </div>
+  <div class="form-group row col-md-12">
+    <label class="col-sm-1 col-form-label">Estudo</label>
+    <div class="col-sm-4">
+      <input id="body_part" name="body_part" class="form-control" [(ngModel)]="fileDCM.body_part" #name="ngModel">
+      <ap-vmessage *ngIf="erroBody_part" text="{{erroBody_part}}"> </ap-vmessage>
+    </div>
+  </div>
+  <div class="form-group row col-md-12">
+    <label class="col-sm-1 col-form-label">Modalidade</label>
+    <div class="col-sm-4">
+      <input id="modality" name="modality" class="form-control" [(ngModel)]="fileDCM.modality" #name="ngModel">
+      <ap-vmessage *ngIf="erroModality" text="{{erroModality}}"> </ap-vmessage>
+    </div>
+  </div>
+  <!-- <div class="form-group row col-md-12">
+    <label class="col-sm-1 col-form-label">date_study</label>
+    <div class="col-sm-4">
+      <input id="date_study" name="date_study" class="form-control" [(ngModel)]="fileDCM.date_study" #name="ngModel"
+        type="datetime">
+    </div>
+  </div> -->
+  <div class="form-group row col-md-12">
+    <label class="col-sm-1 col-form-label">Paciente</label>
+    <label class="col-sm-3 col-form-label">{{fileDCM.pacienteNome}}</label>
+    <div class="col-sm-4">
+        <button [disabled]="!fileDCM"  class="btnAlterarPaciente btn btn-md btn-primary" (click)="AlterarPaciente(fileDCM)">Alterar</button>
+    </div>
+  </div>
+  <div  *ngIf="master" class="form-group row col-md-12">
+    <label class="col-sm-1 col-form-label">Status</label>
+    <div class="checkbox">
+      <nb-checkbox name="status" [(ngModel)]="fileDCM.status">Ativo</nb-checkbox>
+    </div>
+  </div>
+  <div class="modal-footer row col-md-12 DvBotoes">
+    <button class="btnCancelar btn btn-md btn-primary" (click)="Cancelar()">Cancelar</button>
+    <button class="btnSalvar btn btn-md btn-primary" (click)="Salvar()">Salvar</button>
+  </div>
+</div>

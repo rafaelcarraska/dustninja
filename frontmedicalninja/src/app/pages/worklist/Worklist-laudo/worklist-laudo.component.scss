@@ -1,0 +1,111 @@
+ck-editor {
+  color: black;
+}
+
+.divInformacoes {
+  font-size: 11px;
+  padding: 0px 0px 10px 0px;
+  color: black;
+}
+
+.divInformacoes .info {
+  padding: 0px 0px 0px 8px;
+}
+
+.DpMascara {
+  margin: 10px 0px 0px 0px;
+  height: 45px;
+}
+
+.DvBotoes {
+  margin-top: 20px;
+  padding: 10px 5px 15px 55px;
+  bottom: 0;
+  position: relative;
+}
+
+.Dvckeditor {
+  height: 520px;
+  overflow-y: auto;
+}
+
+.DvListas {
+  height: 100px;
+  min-width: 260px !important;
+}
+
+.btnAssinar {
+  margin: 0px 40px 0px 10px;
+  float: right;
+}
+
+.btnCancelar {
+  margin: 0px 35px 0px 10px;
+  float: right;
+}
+
+.btnSelecionarEstudo {
+  margin: 0px 20px 0px 205px;
+  float: left;
+}
+
+.dvIcones {
+  padding: 10px 0px 0px 10px;
+  min-width: 260px !important;
+}
+
+.DvHistorico {
+  padding: 8px 10px 6px 30px;
+  height: 50px;
+  overflow-y: hidden;
+}
+
+.iconWarning {
+  color: orange;
+}
+
+.iconDanger {
+  color: red;
+}
+
+.notification {
+  position: relative;
+  display: inline-block;
+}
+
+.notification .badgeAnexo {
+  position: absolute;
+  top: -7px;
+  right: -1px;
+  padding: 4px 6px;
+  border-radius: 50%;
+  background: green;
+  color: white;
+  font-size: 66% !important;
+}
+
+.notification .badgeNota {
+  position: absolute;
+  top: -9px;
+  right: 3px;
+  padding: 4px 6px;
+  border-radius: 50%;
+  background: green;
+  color: white;
+  font-size: 66% !important;
+}
+
+.dvIcones i {
+  font-size: 17px;
+  padding: 0px 10px 0px 10px;
+}
+
+.dvIcones a {
+  height: 30px;
+}
+
+.DvError {
+  padding: 7px 50px 7px 150px;
+  background-color: #ff00003d;
+  color: black;
+}

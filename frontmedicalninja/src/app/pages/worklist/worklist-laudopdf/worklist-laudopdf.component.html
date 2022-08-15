@@ -1,0 +1,14 @@
+<div style="padding: 20px 20px 20px 58px;">
+  <div class="row">
+    <a *ngIf="!loadpdf && !load" (click)="ServiceWindowsNinja()" class="btntr btnFilePdf">
+      <i title="Download do laudo em pdf." class="far fa-file-pdf  col-md-1" aria-hidden="true"></i>
+    </a>
+    <span *ngIf="loadpdf">Carregando...</span>
+  </div>
+</div>
+
+<div class="pagePDF">
+  <div [innerHTML]="(laudoPage.header == undefined?'':laudoPage.header) | safeHtml" class="pdfheader col-md-12"></div>
+  <div [innerHTML]="(laudoPage.conteudo == undefined?'':laudoPage.conteudo) | safeHtml" class="pdfconteudo col-md-12"></div>
+  <div [innerHTML]="(laudoPage.footer == undefined?'':laudoPage.footer) | safeHtml" class="pdffooter col-md-12"></div>
+</div>

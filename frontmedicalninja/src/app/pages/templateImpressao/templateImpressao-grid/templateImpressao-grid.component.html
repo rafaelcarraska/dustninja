@@ -1,0 +1,40 @@
+
+
+<nb-card>
+  <nb-card-header>
+    <label>Templates de Impressão</label>
+    <label class="label-btn-novo"><a (click)="Novo()" ><i title="Novo" class="fa fa-plus fnteditar" aria-hidden="true"></i>Novo</a></label>
+  </nb-card-header>
+
+  <nb-card-body>
+    <toaster-container [toasterconfig]="config"></toaster-container>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th>Ativo</th>
+          <th>Criado por</th>
+          <th>Data de Criação</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr (dblclick)="Modal(templateImpressao)" *ngFor="let templateImpressao of listaTemplate">
+          <td>{{templateImpressao.descricao}}</td>
+          <td><i *ngIf="templateImpressao.status" title="Status" class="fa fa-check fntstatus" aria-hidden="true"></i></td>
+          <td>{{templateImpressao.log.insertUsuarioId}}</td>
+          <td>{{templateImpressao.log.insertDataFormatada}}</td>
+          <td class="tdIcones">
+            <a (click)="Modal(templateImpressao)" disabled class="btntr">
+              <i title="Editar" class="far fa-edit fnteditar" aria-hidden="true"></i>
+            </a>
+            <a (click)="Deletar(templateImpressao)" disabled class="btntr">
+              <i title="Deletar" class="fa fa-times fntdeletar" aria-hidden="true"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </nb-card-body>
+</nb-card>

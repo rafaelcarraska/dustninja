@@ -1,0 +1,41 @@
+import { LogComponent } from "../log/logComponent";
+import { PacienteComponent } from "../../../pages/paciente/paciente.component";
+
+export class FileDCMComponent{
+  Id: string;
+  fileName: string;
+  studyId: string;
+  studyDesc: string;
+  body_part: string;
+  institution: string;
+  department: string;
+  modality: string;
+  date_study: Date;
+  date_study_formatada: string;
+  data_envio: Date;
+  data_envio_formatada: string;
+  status: boolean;
+  pendente: boolean;
+  favorito: boolean;
+  log: LogComponent = new LogComponent();
+  pacienteId: string;
+  pacienteNome: string;
+  paciente: PacienteComponent = new PacienteComponent();
+  facilityId: string;
+  facilityDesc: string;
+  notaRadiologista: string;
+  permitirDownload: boolean;
+  removerNotas: boolean;
+  permitirLaudo: boolean;
+  confirmarExame: boolean;
+  countAnexo: number;
+  statusExames: string;
+  subStatusExames: string;
+  statusExamesFormatado: string;
+  statusExamesDescricao: string;
+  subStatusExamesFormatado: string;
+  prioridade: string;
+  tempoParaLaudar: string;
+  dateConfirmacaoFormatada: string;
+  countNota: number;
+}

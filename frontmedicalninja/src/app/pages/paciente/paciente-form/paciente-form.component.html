@@ -1,0 +1,79 @@
+<h2>Paciente</h2>
+<div class="col-md-12 row">
+  <label class="col-sm-5 row col-form-label">{{paciente.namePrefix}} {{paciente.nome}} {{paciente.middleName}}
+    {{paciente.giveName}}
+  </label>
+</div>
+<div class="col-md-12 row">
+  <label class="col-sm-5 row col-form-label">({{paciente.pacienteIdDCM}})
+  </label>
+</div>
+<div class="col-md-12 row">
+  <label class="col-sm-6 row col-form-label labelExames">
+    <a (click)="filtroPaciente(paciente.Id)" class="btntr btnfiltroPaciente">
+      <i title="Visualizar os exames relacionados ao paciente." class="fa fa-notes-medical  col-md-1"
+        aria-hidden="true"></i>
+    </a>
+    {{paciente.countExames}} exames
+  </label>
+</div>
+<toaster-container [toasterconfig]="config"></toaster-container>
+<div class="dustForm">
+  <div class="col-md-12 row">
+    <div class="form-group row col-md-12">
+      <label class="col-sm-1 col-form-label">Pronome</label>
+      <div class="col-sm-4">
+        <input id="namePrefix" name="namePrefix" class="form-control" [(ngModel)]="paciente.namePrefix" #name="ngModel">
+        <ap-vmessage *ngIf="erroNamePrefix" text="{{erroNamePrefix}}"> </ap-vmessage>
+      </div>
+    </div>
+    <div class="form-group row col-md-12">
+      <label class="col-sm-1 col-form-label">Nome</label>
+      <div class="col-sm-4">
+        <input id="nome" name="nome" class="form-control" required minlength="3" [(ngModel)]="paciente.nome"
+          #name="ngModel">
+        <ap-vmessage *ngIf="erroNome" text="{{erroNome}}"> </ap-vmessage>
+      </div>
+    </div>
+    <div class="form-group row col-md-12">
+      <label class="col-sm-1 col-form-label">Sobrenome</label>
+      <div class="col-sm-4">
+        <input id="middleName" name="middleName" class="form-control" [(ngModel)]="paciente.middleName" #name="ngModel">
+        <ap-vmessage *ngIf="erroMiddleName" text="{{erroMiddleName}}"> </ap-vmessage>
+      </div>
+    </div>
+    <div class="form-group row col-md-12">
+      <label class="col-sm-1 col-form-label">Apelido</label>
+      <div class="col-sm-4">
+        <input id="giveName" name="giveName" class="form-control" required minlength="3" [(ngModel)]="paciente.giveName"
+          #name="ngModel">
+        <ap-vmessage *ngIf="erroGiveName" text="{{erroGiveName}}"> </ap-vmessage>
+      </div>
+    </div>
+    <div class="form-group row col-md-12">
+      <label class="col-sm-1 col-form-label">Data de nascimento</label>
+      <div class="col-sm-4">
+        <input type="date" id="dataNascimento" name="dataNascimento" class="form-control" [(ngModel)]="dataNascimento"
+          #name="ngModel">
+      </div>
+    </div>
+    <div class="form-group row col-md-12">
+      <label class="col-sm-1 col-form-label">Sexo</label>
+      <div class="col-sm-4">
+        <select [(ngModel)]="paciente.sexo" class="form-control">
+          <option value="F">Feminino</option>
+          <option value="M">Masculino</option>
+        </select>
+      </div>
+      <div class="form-group row col-md-12">
+        <label class="col-sm-1 col-form-label">Status</label>
+        <div class="checkbox">
+          <nb-checkbox [disabled]="!master" name="status" [(ngModel)]="paciente.status">Ativo</nb-checkbox>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer row col-md-12 DvBotoes">
+      <button class="btnCancelar btn btn-md btn-primary" (click)="Cancelar()">Cancelar</button>
+      <button class="btnSalvar btn btn-md btn-primary" (click)="Salvar()">Salvar</button>
+    </div>
+  </div>

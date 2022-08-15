@@ -1,0 +1,52 @@
+<div class="modal-header">
+  <span>{{ modalHeader }}</span>
+  <button class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="">
+  <div class="col-sm-2">
+    <div class="fileUpload btn btn-primary">
+      <i class="fa fa-cloud-upload-alt fa-2x" > <input #file type="file" class="uploadarquivo form-control" (change)="upload(file.files)"></i>
+      <span > Upload de arquivo </span>
+      <div class="progress-bar">
+        <span class="progress-valor" style="width: 90%;" *ngIf="progress > 0 && progress < 100">{{progress}}%</span>
+     </div>
+    </div>
+  </div>
+
+
+  <div class="galeria">
+    <div class="row">
+      <div class="col-sm-4 col-md-4" *ngFor="let image of albums; let i=index">
+        <div class="thumbnail">
+          <img class="miniatura" [src]="(image.thumb)" (click)="open(i, image.usaLightbox)"
+            title="{{image.descricao}}" />
+          <div class="caption">
+            <h3 class="tdDescricao">{{image.descricao}}</h3>
+            <p>Data do envio: <b>{{image.insertDataFormatada}}</b></p>
+            <div class="tdIcones">
+              <a (click)="DeletarAnexo(image)" disabled class="btntr">
+                <i title="Deletar" class="fa fa-times fntdeletar" aria-hidden="true"></i>
+              </a>
+              <a href="{{image.thumb}}" download="{{image.descricao}}" download>
+                <i title="Download" class="fa fa-download fntdownload" aria-hidden="true"></i>
+                <label>({{image.tamanho}})</label>
+                <div *ngIf="image.extensao == 'pdf'">
+                  <label>({{image.extensao}})</label>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer col-md-12">
+    <div class="col-sm-3">
+      <button class="btn btn-md btn-primary" (click)="closeModal()">Cancelar</button>
+    </div>
+  </div>
+
+</div>

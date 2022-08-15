@@ -1,0 +1,74 @@
+// themes - our custom or/and out of the box themes
+@import 'themes';
+
+// framework component themes (styles tied to theme variables)
+@import '~@nebular/theme/styles/globals';
+@import '~@nebular/auth/styles/all';
+
+// global app font size
+@import './font-size';
+
+// loading progress bar theme
+@import './pace.theme';
+
+@import './bootstrap-rtl';
+
+// install the framework and custom global styles
+@include nb-install() {
+
+  // framework global styles
+  @include nb-theme-global();
+  @include nb-auth-global();
+
+  // loading progress bar
+  @include ngx-pace-theme();
+
+  // fixed in rc.9 and can be removed after upgrade
+  .custom-control .custom-control-indicator {
+    border-radius: 50%; // TODO: quickfix for https://github.com/akveo/nebular/issues/275
+  }
+  @include bootstrap-rtl();
+};
+
+.modalxxl .modal-dialog{
+  min-width: 1100px !important;
+  min-height: 800px !important;
+}
+
+.scrollable .fa-book{
+  font-size: 30px !important;
+}
+
+.scrollable .fa-print{
+  font-size: 30px !important;
+}
+
+//esse style estar nesse arquivo devido ao componente nao respeita o codigo em outro arquivo
+.ngx-contextmenu .menuItem .dropdown-menu {
+  background-color: #fff !important;
+  padding: 0!important;
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  border-radius: 5px;
+  background-clip: content-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,.15);
+}
+.ngx-contextmenu .menuItem li {
+  display: block!important;
+  text-transform: capitalize !important;
+}
+.ngx-contextmenu .menuItem a {
+  color: #4b4b4b !important;
+  display: block !important;
+  padding: 5px 10px 5px 0px !important;
+}
+.ngx-contextmenu .menuItem a:hover {
+  color:black !important;
+  background-color:#c6c9c6 !important;
+  text-decoration: none;
+}
+
+.ngx-contextmenu .hasSubMenu:before{
+  color: black !important;
+  content: ">>" !important;
+}

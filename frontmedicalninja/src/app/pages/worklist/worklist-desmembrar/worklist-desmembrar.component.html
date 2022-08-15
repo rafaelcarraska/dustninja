@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <span>Desmembrar Exame</span>
+  <button class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="col-md-12 row dvExames">
+  <div class="form-group row col-md-12">
+    <label class="col-sm-3 col-form-label">Nome Anterior</label>
+    <div class="col-sm-9">
+      <input id="novaDescricao" name="novaDescricao" class="form-control" required minlength="3" [(ngModel)]="desmembrar.novaDescricao" >
+      <ap-vmessage *ngIf="erroNovaDescricao" text="{{erroNovaDescricao}}"> </ap-vmessage>
+    </div>
+  </div>
+  <div class="form-group row col-md-12" *ngFor="let novoExame of desmembrar.novosExames; let i=index; trackBy:trackByFn" >
+    <label class="col-sm-3 col-form-label">Exame desmembrado {{i+1}}</label>
+    <div class="col-sm-6">
+      <input class="form-control" required type="text" [(ngModel)]="desmembrar.novosExames[i]">
+    </div>
+    <div class="col-sm-3">
+      <a (click)="AddExame()" class="btntr btnFileDCM" *ngIf="i==desmembrar.novosExames.length-1" >
+        <i title="Adicionar novo exame" class="fa fa-plus  col-md-1" aria-hidden="true"></i>
+      </a>
+      <a (click)="RemoverExame(i)" class="btntr btnFileDCM">
+        <i title="Remover exame" class="fa fa-times fntdeletar col-md-1" aria-hidden="true"></i>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="dustModal">
+  <div class="modal-footer row col-md-12">
+    <button class="btn btn-sm btn-success" (click)="Desmembrar()">
+      Desmembrar
+    </button>
+    <button class="btn btn-sm btn-primary" (click)="closeModal()">
+      Cancelar
+    </button>
+  </div>
+</div>

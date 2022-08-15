@@ -1,0 +1,56 @@
+<nb-card>
+    <nb-card-header>
+        <div class="row">
+          <div class="col-md-6">
+            <label>Unidades</label>
+          </div>
+          <div class="col-md-4 buscar form-group">
+            <!-- <filtro-basico [(saida)]="saida"></filtro-basico> -->
+          </div>
+          <div class="col-md-2">
+            <label class="label-btn-novo"><a (click)="Novo()"><i title="Novo" class="fa fa-plus fnteditar"
+                  aria-hidden="true"></i>Novo</a></label>
+          </div>
+        </div>
+      </nb-card-header>
+  <nb-card-body>
+      <toaster-container [toasterconfig]="config"></toaster-container>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th>AE Title</th>
+          <th>Razão Social</th>
+          <th>Retenção de Imagens (dias)</th>
+          <th>Ativo</th>
+          <th>Criado por</th>
+          <th>Data de Criação</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr (dblclick)="Modal(facility)" *ngFor="let facility of listaFacilitys">
+          <td>{{facility.descricao}}</td>
+          <td>{{facility.aeTitle}}</td>
+          <td>{{facility.razaoSocial}}</td>
+          <td>{{facility.tempoRetencaoImagens}}</td>
+          <td><i *ngIf="facility.status" title="Status" class="fa fa-check fntstatus" aria-hidden="true"></i></td>
+          <td>{{facility.log.insertUsuarioId}}</td>
+          <td>{{facility.log.insertDataFormatada}}</td>
+          <td class="tdIcones">
+              <a (click)="Permissoes(facility)" disabled class="btntr">
+                  <i title="Editar Permissões" class="fa fa-lock fntlock" aria-hidden="true"></i>
+                </a>
+            <a (click)="Modal(facility)" disabled class="btntr">
+              <i title="Editar" class="far fa-edit fnteditar" aria-hidden="true"></i>
+            </a>
+            <a (click)="Deletar(facility)" disabled class="btntr">
+              <i title="Deletar" class="fa fa-times fntdeletar" aria-hidden="true"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,15 @@
+﻿using System;
+
+namespace DustMedicalNinja.Business.Totp.Helper
+{
+    internal static class Guard
+    {
+        internal static void NotNull(object testee)
+        {
+            if (testee == null)
+            {
+                throw new NullReferenceException();
+            }
+        }
+    }
+}

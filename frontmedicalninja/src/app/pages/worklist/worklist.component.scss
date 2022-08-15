@@ -1,0 +1,138 @@
+
+.buscaWorkList {
+  float: right;
+  border-radius: 10px;
+  height: 30px;
+}
+
+.favorito {
+  color: orange;
+}
+
+.tdTPLatrasado {
+  color: red;
+}
+
+.naoFavorito {
+  color: gray;
+}
+
+.notification {
+  position: relative;
+  display: inline-block;
+}
+
+.notification .badgeAnexo {
+  position: absolute;
+  top: -7px;
+  right: -1px;
+  padding: 4px 6px;
+  border-radius: 50%;
+  background: green;
+  color: white;
+  font-size: 66% !important;
+}
+
+.btnpaperclip {
+  font-size: 14px !important;
+}
+
+.notification .badgeNota {
+  position: absolute;
+  top: -9px;
+  right: 3px;
+  padding: 4px 6px;
+  border-radius: 50%;
+  background: green;
+  color: white;
+  font-size: 66% !important;
+}
+
+.btncomment {
+  font-size: 14px !important;
+}
+
+.btnFileSearch{
+  font-size: 14px;
+}
+
+.btnbloq{
+  font-size: 14px;
+}
+
+.btnstatusLaudo {
+  font-size: 14px !important;
+}
+
+.btnMedico{
+  font-size: 16px !important;
+}
+
+.btnQuestion{
+  color: red;
+}
+
+.btnSettings{
+  font-size: 23px;
+}
+
+.btnFilePdf{
+  font-size: 15px;
+}
+
+.divConfig{
+  padding-bottom: 10px;
+}
+
+.btnSalvarConfiguracao{
+  margin-top: 26px;
+}
+
+.imgSpinner{
+  width: 42px;
+}
+
+.pagWorlist{
+  position: fixed;
+  bottom: 55px;
+  width: 100%;
+}
+
+.nbCard-workList{
+  height: 75vh;
+}
+
+table tr {
+  font-size: 12px;
+}
+
+.tableWorklist .danger{
+  background-color: rgb(242, 222, 222);
+  font-style: red;
+}
+
+.tableWorklist .warning{
+  background-color: rgb(252, 248, 227);
+  color: orange;
+}
+
+.tdIconesRigth{
+  min-width: 154px;
+}
+
+.tdIconesLeft{
+  min-width: 150px;
+}
+
+.DpFiltro{
+  height: 40px !important;
+}
+
+.btnEstatiscas{
+  font-size: 22px;
+}
+
+
+.destaqueAlertaCritico{
+  font-style: bold;
+}

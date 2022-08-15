@@ -1,0 +1,134 @@
+<div class="divInformacoes row col-md-12">
+  <div class="col-md-4">
+    <div class="col-md-12">
+      <strong class="tituloInfo">Paciente:</strong>
+      <label class="info">{{ fileDCM.pacienteNome }}</label>
+    </div>
+    <div class="col-md-12">
+      <strong class="tituloInfo">Data Nascimento:</strong>
+      <label class="info">
+        {{fileDCM.paciente.dataNascimento_formatada}}
+        ({{fileDCM.paciente.idade}} anos)</label>
+    </div>
+    <div class="col-md-12">
+      <strong class="tituloInfo">Data do Envio:</strong>
+      <label class="info">{{ fileDCM.data_envio_formatada }}</label>
+    </div>
+    <div class="col-md-12">
+      <strong class="tituloInfo">Data do exame:</strong>
+      <label class="info">{{ fileDCM.date_study_formatada }}</label>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="col-md-12">
+      <strong class="tituloInfo">Estudo:</strong>
+      <label class="info">{{ fileDCM.studyDesc }}</label>
+    </div>
+    <div class="col-md-12">
+      <strong class="tituloInfo">Sexo:</strong>
+      <label class="info">{{ fileDCM.paciente.sexo }}</label>
+    </div>
+    <div class="col-md-12">
+      <strong class="tituloInfo">Modalidade:</strong>
+      <label class="info">{{ fileDCM.modality }}</label>
+    </div>
+    <div class="col-md-12">
+      <strong class="tituloInfo">Departamento:</strong>
+      <label class="info">{{ fileDCM.department }}</label>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="col-md-12">
+      <strong class="tituloInfo">Body Party:</strong>
+      <label class="info">{{ fileDCM.body_part }}</label>
+    </div>
+    <div class="col-md-12">
+      <strong class="tituloInfo">Apelido:</strong>
+      <label class="info">{{ fileDCM.paciente.giveName }}</label>
+    </div>
+    <div class="col-md-12">
+      <strong class="tituloInfo">Unidade:</strong>
+      <label class="info">{{ fileDCM.facilityDesc }}</label>
+    </div>
+    <div class="col-md-12">
+      <strong class="tituloInfo">Instituição:</strong>
+      <label class="info">{{ fileDCM.institution }}</label>
+    </div>
+  </div>
+</div>
+<div *ngIf="historicoClinico.nota" class="row col-md-12 DvHistorico">
+  <label [innerHtml]="notaResumida"></label>
+  <a class="btntr" (click)="OpenHistorico()">
+    <i title="Visualizar histórico clínico" class="fa fa-notes-medical  col-md-1" aria-hidden="true"></i>
+  </a>
+</div>
+<div *ngIf="fileDCM.notaRadiologista" class="row col-md-12">
+    <label>{{fileDCM.notaRadiologista}}</label>
+  </div>
+<div *ngIf="msgError" class="row col-md-12 DvError alert">
+  <span>{{msgError}}</span>
+</div>
+<div class="row col-md-12 DvConteudo">
+  <div class="row col-md-3 DvListas">
+    <div class="row col-md-12 dvIcones">
+      <a class="btntr">
+        <i [ngClass]="fileDCM.prioridade == 'urgente'? 'iconWarning'
+            : fileDCM.prioridade == 'critico'? 'iconDanger'
+            : ''" title="Prioridade: {{fileDCM.prioridade}}" class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+      </a>
+      <a (click)="Notas(fileDCM)" class="btntr notification">
+        <span *ngIf="fileDCM.countNota > 0" class="badgeNota">{{fileDCM.countNota}}</span>
+        <i [ngClass]="fileDCM.pendente ? 'fa-comments' : 'fa-comment'" title="Notas" class="fa btncomment"
+          aria-hidden="true"></i>
+      </a>
+      <a (click)="Anexos(fileDCM)" class="btntr notification">
+        <span *ngIf="fileDCM.countAnexo > 0" class="badgeAnexo">{{fileDCM.countAnexo}}</span>
+        <i title="Anexos" class="fa fa-paperclip btnpaperclip" aria-hidden="true"></i>
+      </a>
+      <a *ngIf="fileDCM.permitirDownload"
+        href="{{serviceUrlDCM}}dcm4chee-arc/aets/DCM4CHEE/rs/studies/{{fileDCM.studyId}}?accept=application/zip;transfer-syntax=*"
+        target="_blank" class="btntr btnDownloadDICOM">
+        <i title="Download DICOM" class="fa fa-download" aria-hidden="true"></i>
+      </a>
+      <a disable *ngIf="!fileDCM.permitirDownload" class="btntr btnDownloadDICOM">
+        <i title="Você não tem permissão para realizar o download." class="fa fa-download" aria-hidden="true"></i>
+      </a>
+      <a (click)="OpenOhif(fileDCM)" class="btntr btnFileDCM">
+        <i title="Visualizar DICOM" class="fa fa-search" aria-hidden="true"></i>
+      </a>
+      <a (click)="ExamesAnteriores(fileDCM)" class="btntr btnFileDCM">
+        <i title="Visualizar exames anteriores" class="fa fa-briefcase-medical" aria-hidden="true"></i>
+      </a>
+    </div>
+    <div class="dropdown ghost-dropdown row col-md-12" ngbDropdown>
+      <button [disabled]="load" class="btn btn-primary DpMascara" type="button" ngbDropdownToggle>
+        Máscara de Laudo
+      </button>
+      <ul class="dropdown-menu" ngbDropdownMenu>
+        <li *ngFor="let mascara of listaMascara" class="dropdown-item" (click)="SelecionaMascara(mascara, myckeditor)">
+          {{mascara.descricao}}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="row col-md-9 Dvckeditor">
+    <ck-editor name="laudo" #myckeditor [config]="ckeConfig" skin="moono-lisa" language="pt-br" [fullPage]="true"
+      [(ngModel)]="confirmacao.historiaClinica"></ck-editor>
+  </div>
+</div>
+<footer>
+  <div class="row col-md-12 DvBotoes">
+    <div class="row col-md-3">
+      <button [disabled]="load" class="btnSelecionarEstudo btn btn-sm btn-success" (click)="SelecionarTipoEstudo()">
+        {{ textoBotao == "" ? "Seleciona Tipo de Estudo" : textoBotao }}
+      </button>
+    </div>
+    <div class="offset-sm-5 col-sm-4">
+      <button [disabled]="load" class="btnAssinar btn btn-sm btn-primary" (click)="Assinar()">
+        Assinar
+      </button>
+      <button class="btnCancelar btn btn-sm btn-danger" (click)="closeWindows()">
+        Cancelar
+      </button>
+    </div>
+  </div>
+</footer>

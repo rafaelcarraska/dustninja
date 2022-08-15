@@ -1,0 +1,77 @@
+<h2>Template de Impressão</h2>
+<toaster-container [toasterconfig]="config"></toaster-container>
+<div class="dustForm">
+  <div class="col-md-12 row">
+    <div class="form-group row col-md-12">
+      <label class="col-sm-1 col-form-label">Descrição</label>
+      <div class="col-sm-4">
+        <input id="descricao" name="descricao" class="form-control" required minlength="3"
+          [(ngModel)]="templateImpressao.descricao" #name="ngModel">
+        <ap-vmessage *ngIf="erroDescricao" text="{{erroDescricao}}"> </ap-vmessage>
+      </div>
+      <div class="offset-sm-1 col-sm-2">
+        <div class="checkbox">
+          <nb-checkbox name="status" [(ngModel)]="templateImpressao.status">Ativo</nb-checkbox>
+        </div>
+      </div>
+
+      <div class="col-sm-2 dvIcones">
+        <label>Anexar arquivos</label>
+        <a (click)="Anexos(templateImpressao)" class="btntr notification">
+          <span *ngIf="templateImpressao.countAnexo > 0" class="badgeAnexo">{{templateImpressao.countAnexo}}</span>
+          <i title="Anexos" class="fa fa-paperclip btnpaperclip" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+    <nb-tabset (changeTab)="mudaTab($event)">
+      <nb-tab tabTitle="Cabeçalho">
+        <div class="form-group row col-md-12">
+          <label class="col-sm-1 col-form-label">Tamanho do cabeçalho</label>
+          <div class="col-sm-2">
+            <input [(ngModel)]="templateImpressao.headerHeight" type="number" class="form-control">
+          </div>
+          <div class="checkbox">
+            <nb-checkbox name="repetiCabecalho" [(ngModel)]="templateImpressao.repetiCabecalho">Repetir em todas as
+              paginas</nb-checkbox>
+          </div>
+        </div>
+        <div class="form-group row col-md-12">
+          <div class="col-sm-12" *ngIf="cabecalho">
+            <ck-editor id="cabecalho" name="cabecalho" [config]="ckeCabecalhoConfig"
+              [(ngModel)]="templateImpressao.cabecalho" [fullPage]="true"></ck-editor>
+          </div>
+        </div>
+      </nb-tab>
+      <nb-tab tabTitle="Corpo">
+        <div class="form-group row col-md-12">
+          <div class="col-sm-12" *ngIf="corpo">
+            <ck-editor id="corpo" name="corpo" [config]="ckeCorpoConfig" [(ngModel)]="templateImpressao.corpo"
+              [fullPage]="true"></ck-editor>
+          </div>
+        </div>
+      </nb-tab>
+      <nb-tab tabTitle="Rodapé">
+        <div class="form-group row col-md-12">
+          <label class="col-sm-1 col-form-label">Tamanho do rodapé</label>
+          <div class="col-sm-2">
+            <input [(ngModel)]="templateImpressao.footerHeight" type="number" class="form-control">
+          </div>
+          <div class="checkbox">
+            <nb-checkbox name="repetiRodape" [(ngModel)]="templateImpressao.repetiRodape">Repetir em todas as paginas
+            </nb-checkbox>
+          </div>
+        </div>
+        <div class="form-group row col-md-12">
+          <div class="col-sm-12" *ngIf="rodape">
+            <ck-editor id="rodape" name="rodape" [config]="ckeRodapeConfig" [(ngModel)]="templateImpressao.rodape"
+              [fullPage]="true"></ck-editor>
+          </div>
+        </div>
+      </nb-tab>
+    </nb-tabset>
+  </div>
+  <div class="modal-footer row col-md-12 DvBotoes">
+    <button class="btnCancelar btn btn-md btn-primary" (click)="Cancelar()">Cancelar</button>
+    <button class="btnSalvar btn btn-md btn-primary" (click)="Salvar()">Salvar</button>
+  </div>
+</div>

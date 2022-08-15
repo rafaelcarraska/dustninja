@@ -1,0 +1,87 @@
+<div class="modal-header">
+    <span>{{ modalHeader }}</span>
+    <button class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="dustModal">
+      <nb-tabset>
+          <nb-tab tabTitle="Unidades">
+              <div class="form-group row col-md-12">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Unidades</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let facility of listaFacility">
+                        <td><input type="checkbox" [(ngModel)]="facility.status" (change)="checkFacility(facility)"></td>
+                        <td>{{facility.descricao}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+          </nb-tab>
+          <nb-tab tabTitle="Acessos">
+            <div class="row col-md-12">
+              <label class="col-sm-2 col-form-label">Unidades</label>
+              <div class="col-sm-5">
+                  <select class="form-control selectFacility" #selectFacility (change)="onChangeFacility(selectFacility.value)">
+                      <option value="0">Selecione...</option>
+                      <option  *ngFor="let option of listaFacilityCombo" [value]="option.Id">{{ option.descricao }}</option>
+                  </select>
+              </div>
+            </div>
+            <div class="row show-grid col-md-12 dustInput" *ngIf="facilitySelecionada"  >
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Permissões</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let permissao of listaPermissoesModal">
+                        <td><input type="checkbox" [(ngModel)]="permissao.status" (change)="checkPermissao(permissao)"></td>
+                        <td>{{permissao.descricao}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+          </nb-tab>
+          <nb-tab tabTitle="Batch">
+              <div class="row show-grid col-md-12 dustInput">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Permissões</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let permissao of listaPermissoesModalBatch">
+                      <td><input type="checkbox" [(ngModel)]="permissao.status" (change)="SelectBacth()"></td>
+                      <td>{{permissao.descricao}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </nb-tab>
+      </nb-tabset>
+      <div class="modal-footer row col-md-12">
+        <div class="col-sm-6 modal-footer-log">
+          <label>{{usuario.log.updateUsuarioId}} - {{usuario.log.updateDataEncerramento}}</label>
+        </div>
+        <div class="col-sm-3">
+          <button class="btnCancelar btn btn-md btn-primary" (click)="closeModal()">Cancelar</button>
+        </div>
+        <div *ngIf="!batch" class="col-sm-3">
+            <button class="btnSalvar btn btn-md btn-primary" (click)="Salvar()">Salvar</button>
+          </div>
+          <div *ngIf="batch" class="col-sm-3">
+              <button class="btnProcessar btn btn-md btn-primary" (click)="ProcessarBatch()">Processar Batch</button>
+            </div>
+      </div>
+  </div>

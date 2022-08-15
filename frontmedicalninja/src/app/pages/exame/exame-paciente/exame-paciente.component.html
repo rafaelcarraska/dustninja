@@ -1,0 +1,80 @@
+<div class="modal-header">
+  <span>Paciente atual: {{fileDCM.pacienteNome}}</span>
+  <button class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="dustModalExamePaciente">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-md-4 buscar form-group">
+          <div class="row ">
+            <label class="col-md-5">Buscar</label>
+            <input (keyup)="setfiltro()" type="text" class="form-control col-md-7 buscar" name="searchString"
+              [(ngModel)]="searchString" />
+          </div>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <toaster-container [toasterconfig]="config"></toaster-container>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Data de Nascimento</th>
+            <th>Qtd de Exames</th>
+            <th>Paciente Id</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let paciente of pagedItems">
+            <td>{{paciente.nomeCompleto}}</td>
+            <td>{{paciente.dataNascimento_formatada}} ({{paciente.idade}})</td>
+            <td>{{paciente.countExames}}</td>
+            <td>{{paciente.pacienteIdDCM}}</td>
+            <td><button [disabled]="load" class="btnselecionar btn btn-sm btn-primary" (click)="TrocaPaciente(paciente)">Selecionar</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row pagPaciente">
+        <div class="col-md-4">
+          <nav class="ng2-smart-pagination-nav ng-star-inserted">
+            <ul class="ng2-smart-pagination pagination">
+              <li class="ng2-smart-page-item page-item" [ngClass]="{ disabled: pager.currentPage === 1 }">
+                <a aria-label="First" class="ng2-smart-page-link page-link" (click)="setPage(1)">Início</a>
+              </li>
+              <li class="ng2-smart-page-item page-item" [ngClass]="{ disabled: pager.currentPage === 1 }">
+                <a aria-label="Prev" class="ng2-smart-page-link page-link page-link-prev"
+                  (click)="setPage(pager.currentPage - 1)">Anterior</a>
+              </li>
+              <li *ngFor="let page of pager.pages" [ngClass]="{ active: pager.currentPage === page }"
+                class="ng2-smart-page-item page-item active ng-star-inserted">
+                <span (click)="setPage(page)" class="ng2-smart-page-link page-link ng-star-inserted">
+                  <a>{{ page }}</a>
+                </span>
+              </li>
+              <li class="ng2-smart-page-item page-item">
+                <a aria-label="Next" class="ng2-smart-page-link page-link page-link-next"
+                  [ngClass]="{ disabled: pager.currentPage === pager.totalPages }"
+                  (click)="setPage(pager.currentPage + 1)">Próximo</a>
+              </li>
+              <li class="ng2-smart-page-item page-item"
+                [ngClass]="{ disabled: pager.currentPage === pager.totalPages }">
+                <a aria-label="Last" class="ng2-smart-page-link page-link"
+                  (click)="setPage(pager.totalPages)">Último</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+  <div class="modal-footer row col-md-12">
+    <button class="btn btn-sm btn-primary" (click)="closeModal()">
+      CANCELAR
+    </button>
+  </div>
+</div>
